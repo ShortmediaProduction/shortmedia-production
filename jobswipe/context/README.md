@@ -8,6 +8,7 @@ Lege hier (lokal) oder im privaten Supabase-Bucket `context` (Produktion) diese 
 - `Lang_Julian_Lebenslauf.pdf` (wird jeder Bewerbung angehängt)
 - `Julian_Lang_Sprach_CI.pdf` (Ton, Vokabular, Negativliste)
 - `Julian_Lang_Karriereprofil_CI_fuer_Claude.pdf` (verbindliche Faktenbasis)
+- `Lang_Julian_EFZ_Mediamatiker.pdf` (wird jeder Bewerbung angehängt)
 - optional `Beispiel_Motivationsschreiben.pdf` (ein gelungenes Schreiben als Stilreferenz)
 
 Die App lädt sie bei jeder Generierung zur Laufzeit. Zum Ersetzen einfach die Datei austauschen.

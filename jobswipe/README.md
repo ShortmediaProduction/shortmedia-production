@@ -4,7 +4,7 @@ Private, mobile-first Web-App: sammelt jeden Morgen neue Stellen aus der Schweiz
 
 | Geste | Aktion |
 |---|---|
-| nach rechts / ♥ / Pfeil rechts | bewerben (Recherche, Motivationsschreiben-PDF, Mail, Gmail-Entwurf) |
+| nach rechts / ♥ / Pfeil rechts | bewerben: Claude schreibt Motivationsschreiben und Mail, Gmail-Entwurf mit Lebenslauf, Motivationsschreiben und EFZ als Anhang |
 | nach links / ✕ / Pfeil links | ablehnen, optional mit Grund-Chip |
 | nach oben / ★ / Pfeil hoch | merken (Tab «Bewerbungen», Ansicht «Gemerkt») |
 | ↶ / Backspace | letzten Swipe rückgängig (löscht bei «rechts» auch Bewerbung und Entwurf) |
@@ -68,6 +68,7 @@ Das Repo ist **öffentlich**, deshalb liegen Lebenslauf und Profile nicht im Cod
 - `Lang_Julian_Lebenslauf.pdf`
 - `Julian_Lang_Sprach_CI.pdf`
 - `Julian_Lang_Karriereprofil_CI_fuer_Claude.pdf`
+- `Lang_Julian_EFZ_Mediamatiker.pdf` (wird jeder Bewerbung angehängt)
 - optional `Beispiel_Motivationsschreiben.pdf` (z. B. das Milan-Film-Schreiben als Stilreferenz)
 
 Zum Ersetzen einfach die Datei im Bucket überschreiben. Nach spätestens 10 Minuten nutzt die App die neue Version. Die Einstellungsseite zeigt, welche Dateien gefunden wurden.

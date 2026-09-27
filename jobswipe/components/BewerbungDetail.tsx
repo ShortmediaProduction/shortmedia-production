@@ -147,7 +147,7 @@ export function BewerbungDetail({ id }: { id: string }) {
                     <label htmlFor="mail">Text (Grussformel und Signatur werden angehängt)</label>
                     <textarea id="mail" className="eingabe" rows={14} value={texte.mail_text ?? ""} onChange={(e) => aendere("mail_text", e.target.value)} />
                   </div>
-                  <p className="hinweis ohne-abstand">Anhänge: Motivationsschreiben (PDF) und Lebenslauf (PDF)</p>
+                  <p className="hinweis ohne-abstand">Anhänge: Lebenslauf, Motivationsschreiben und EFZ (je PDF)</p>
                 </>
               ) : (
                 <>

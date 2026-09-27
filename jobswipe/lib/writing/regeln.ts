@@ -24,8 +24,22 @@ interface Regel {
 
 const treffer = (re: RegExp, text: string) => text.match(re)?.[0] ?? null;
 
-/** Klassische Bewerbungsfloskeln. Die individuelle Negativliste prüft der Claude-Check gegen das Sprach-CI. */
+/** Floskeln aus der Negativliste im Sprach-CI plus klassische Bewerbungsfloskeln. Der Rest prüft das Claude-Lektorat. */
 const FLOSKELN = [
+  /mit grosser leidenschaft/i,
+  /meine vision/i,
+  /wertvolle erfahrungen?/i,
+  /einen mehrwert/i,
+  /spannende herausforderungen?/i,
+  /inspirierende[ns]? (umfeld|team)/i,
+  /fachlich wie persönlich/i,
+  /(meinen )?horizont (zu )?erweitern/i,
+  /nachhaltig in erinnerung/i,
+  /die perfekte verbindung/i,
+  /genau das treibt mich an/i,
+  /mitgestalten und wachsen/i,
+  /meine expertise einbringen/i,
+  /unglaubliche ehre/i,
   /hiermit bewerbe ich mich/i,
   /mit (grossem|großem|viel) interesse habe ich/i,
   /über eine einladung zu einem (persönlichen )?(vorstellungs)?gespräch (würde ich mich )?(sehr )?freuen/i,

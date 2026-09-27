@@ -31,7 +31,7 @@ E-Mail-Text: kürzer (etwa 120 bis 200 Wörter), Aufbau in dieser Reihenfolge:
 3. persönliche Erfahrung
 4. die Bitte (Gespräch, Mitarbeit, Einstieg)
 5. zuletzt die Verfügbarkeit
-Das Motivationsschreiben und der Lebenslauf sind angehängt, darauf kurz hinweisen.
+Lebenslauf, Motivationsschreiben und EFZ-Zeugnis sind angehängt, darauf kurz hinweisen.
 
 ${HARTE_REGELN}`;
 

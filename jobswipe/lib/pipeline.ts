@@ -59,15 +59,16 @@ export async function entwurfSchreiben(appId: string): Promise<void> {
   await repo.upload("applications", pdfPfad, pdf, "application/pdf");
 
   await repo.updateApplication(appId, { schritt: "Gmail-Entwurf anlegen", pdf_pfad: pdfPfad });
-  const cv = await ladePflichtKontext("lebenslauf");
+  const [cv, efz] = await Promise.all([ladePflichtKontext("lebenslauf"), ladePflichtKontext("efz")]);
   const empfaenger = job.bewerbungsweg === "email" && job.email ? job.email : null;
   const entwurf = {
     an: empfaenger,
     betreff: app.betreff ?? `Bewerbung ${job.titel}`,
     text: mailMitSignatur(app.anrede, app.mail_text),
     anhaenge: [
-      { dateiname: dateiname(job), contentType: "application/pdf", daten: pdf },
       { dateiname: KONTEXT.lebenslauf, contentType: "application/pdf", daten: cv },
+      { dateiname: dateiname(job), contentType: "application/pdf", daten: pdf },
+      { dateiname: KONTEXT.efz, contentType: "application/pdf", daten: efz },
     ],
   };
 

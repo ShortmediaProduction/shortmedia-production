@@ -45,3 +45,9 @@ describe("Regel-Check", () => {
     expect(v.some((x) => x.startsWith("E-Mail: Verfügbarkeitssatz"))).toBe(true);
   });
 });
+
+describe("Negativliste aus dem Sprach-CI", () => {
+  it.each(["wertvolle Erfahrungen sammeln", "meinen Horizont erweitern", "fachlich wie persönlich", "ein inspirierendes Umfeld", "Mit grosser Leidenschaft"])("findet «%s»", (satz) => {
+    expect(pruefeText(`${satz}. ${VERFUEGBARKEITS_SATZ}`, "Mail").join(" ")).toContain("Floskel");
+  });
+});

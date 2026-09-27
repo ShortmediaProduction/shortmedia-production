@@ -9,6 +9,7 @@ export const KONTEXT = {
   lebenslauf: process.env.CONTEXT_CV ?? "Lang_Julian_Lebenslauf.pdf",
   sprachCi: process.env.CONTEXT_SPRACH_CI ?? "Julian_Lang_Sprach_CI.pdf",
   karriereprofil: process.env.CONTEXT_KARRIEREPROFIL ?? "Julian_Lang_Karriereprofil_CI_fuer_Claude.pdf",
+  efz: process.env.CONTEXT_EFZ ?? "Lang_Julian_EFZ_Mediamatiker.pdf",
   beispiel: process.env.CONTEXT_BEISPIEL ?? "Beispiel_Motivationsschreiben.pdf",
 } as const;
 
