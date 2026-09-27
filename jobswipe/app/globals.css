@@ -1,0 +1,897 @@
+/* JobSwipe: CI Julian Lang. Ruhig und klar, keine verspielten Effekte. */
+:root {
+  --akzent: #f5551e;
+  --akzent-weich: #fde6dc;
+  --text: #232323;
+  --mittel: #5c5c58;
+  --hell: #9a9a96;
+  --linie: #d8d8d4;
+  --grund: #f2f2f0;
+  --karte: #ffffff;
+  --radius: 18px;
+  --schatten: 0 1px 2px rgba(35, 35, 35, 0.06), 0 8px 24px rgba(35, 35, 35, 0.08);
+  --sicher-oben: env(safe-area-inset-top, 0px);
+  --sicher-unten: env(safe-area-inset-bottom, 0px);
+  --tabbar: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--grund);
+  color: var(--text);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--akzent);
+  outline-offset: 2px;
+}
+
+/* ---------- App-Rahmen ---------- */
+
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+  margin: 0 auto;
+  padding-top: var(--sicher-oben);
+}
+
+.kopfzeile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 6px;
+  min-height: 52px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-punkt {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--akzent);
+}
+
+.kopf-info {
+  font-size: 12px;
+  color: var(--hell);
+}
+
+.inhalt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px calc(var(--tabbar) + var(--sicher-unten) + 16px);
+}
+
+/* ---------- Tab-Leiste ---------- */
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  background: rgba(242, 242, 240, 0.92);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--linie);
+  padding-bottom: var(--sicher-unten);
+}
+
+.tabbar nav {
+  max-width: 520px;
+  margin: 0 auto;
+  height: var(--tabbar);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 11px;
+  text-decoration: none;
+  color: var(--hell);
+  position: relative;
+}
+
+.tab svg {
+  width: 24px;
+  height: 24px;
+}
+
+.tab[aria-current="page"] {
+  color: var(--text);
+}
+
+.tab[aria-current="page"] svg {
+  color: var(--akzent);
+}
+
+.tab-zahl {
+  position: absolute;
+  top: 8px;
+  left: calc(50% + 8px);
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--akzent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Kartenstapel ---------- */
+
+.stapel-bereich {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.stapel {
+  position: relative;
+  flex: 1;
+  min-height: 420px;
+  max-height: 640px;
+  margin-top: 4px;
+}
+
+.karte {
+  position: absolute;
+  inset: 0;
+  background: var(--karte);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.karte-oben {
+  cursor: grab;
+}
+
+.karte-oben:active {
+  cursor: grabbing;
+}
+
+.karte-kopf {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--grund);
+}
+
+.karte-zeile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--grund);
+  color: var(--mittel);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.chip-akzent {
+  background: var(--akzent-weich);
+  color: #b33a0e;
+}
+
+.score {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1;
+  border: 3px solid var(--linie);
+}
+
+.score small {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--hell);
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+.score-hoch {
+  border-color: var(--akzent);
+  color: var(--akzent);
+}
+
+.score-mittel {
+  border-color: var(--text);
+}
+
+.firma {
+  margin: 14px 0 2px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mittel);
+}
+
+.titel {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--mittel);
+}
+
+.meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.meta svg {
+  width: 14px;
+  height: 14px;
+  color: var(--hell);
+}
+
+.karte-koerper {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: 14px 20px;
+  position: relative;
+}
+
+.karte-koerper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  background: linear-gradient(transparent, var(--karte));
+}
+
+.abschnitt-titel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hell);
+  margin: 0 0 6px;
+}
+
+.liste {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.liste li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.liste svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.liste-gut svg {
+  color: var(--text);
+}
+
+.liste-flag svg {
+  color: var(--akzent);
+}
+
+.karte-fuss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--grund);
+  font-size: 13px;
+}
+
+.link-extern {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--mittel);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-extern svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Stempel beim Ziehen, wie bei Tinder */
+.stempel {
+  position: absolute;
+  top: 34px;
+  z-index: 5;
+  padding: 4px 12px;
+  border: 4px solid currentColor;
+  border-radius: 10px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}
+
+.stempel-rechts {
+  left: 22px;
+  color: var(--akzent);
+  transform: rotate(-14deg);
+}
+
+.stempel-links {
+  right: 22px;
+  color: var(--text);
+  transform: rotate(14deg);
+}
+
+.stempel-hoch {
+  left: 50%;
+  top: auto;
+  bottom: 110px;
+  color: var(--mittel);
+  transform: translateX(-50%) rotate(-6deg);
+}
+
+/* ---------- Aktions-Buttons ---------- */
+
+.aktionen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 18px 0 4px;
+}
+
+.rund {
+  border: 1px solid var(--linie);
+  background: var(--karte);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--schatten);
+  transition: transform 0.12s ease, background 0.12s ease;
+  padding: 0;
+}
+
+.rund:active {
+  transform: scale(0.92);
+}
+
+.rund:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.rund-klein {
+  width: 48px;
+  height: 48px;
+}
+
+.rund-gross {
+  width: 64px;
+  height: 64px;
+}
+
+.rund svg {
+  width: 45%;
+  height: 45%;
+}
+
+.rund-nein {
+  color: var(--text);
+}
+
+.rund-ja {
+  color: var(--akzent);
+}
+
+.rund-merken,
+.rund-zurueck {
+  color: var(--mittel);
+}
+
+/* ---------- Leerer Zustand ---------- */
+
+.leer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 40px 20px;
+  color: var(--mittel);
+}
+
+.leer h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.leer p {
+  margin: 0;
+  max-width: 300px;
+  font-size: 14px;
+}
+
+/* ---------- Buttons, Formulare ---------- */
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.knopf-hell {
+  background: var(--karte);
+  color: var(--text);
+  border-color: var(--linie);
+}
+
+.knopf-akzent {
+  background: var(--akzent);
+  border-color: var(--akzent);
+}
+
+.knopf:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.knopf-reihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.feld label,
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mittel);
+}
+
+.eingabe {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--linie);
+  border-radius: 12px;
+  background: var(--karte);
+  font-size: 15px;
+}
+
+textarea.eingabe {
+  min-height: 160px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.hinweis {
+  font-size: 12px;
+  color: var(--hell);
+}
+
+/* ---------- Blätter und Listen ---------- */
+
+.block {
+  background: var(--karte);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 2px rgba(35, 35, 35, 0.05);
+}
+
+.block h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.seiten-titel {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 6px 0 14px;
+  letter-spacing: -0.01em;
+}
+
+.segment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #e6e6e3;
+  border-radius: 12px;
+  padding: 3px;
+  margin-bottom: 14px;
+}
+
+.segment button {
+  border: 0;
+  background: transparent;
+  border-radius: 9px;
+  min-height: 36px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mittel);
+}
+
+.segment button[aria-pressed="true"] {
+  background: var(--karte);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(35, 35, 35, 0.1);
+}
+
+.zeile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--karte);
+  border-radius: 14px;
+  margin-bottom: 8px;
+  text-decoration: none;
+}
+
+.zeile-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.zeile-titel {
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.zeile-sub {
+  font-size: 12px;
+  color: var(--mittel);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  background: var(--grund);
+  color: var(--mittel);
+}
+
+.status-entwurf {
+  background: var(--akzent-weich);
+  color: #b33a0e;
+}
+
+.status-versendet,
+.status-gespraech {
+  background: var(--text);
+  color: #fff;
+}
+
+.status-fehler {
+  background: #fff;
+  color: var(--akzent);
+  border: 1px solid var(--akzent);
+}
+
+.status-absage {
+  color: var(--hell);
+}
+
+/* Bottom Sheet (Detailansicht) */
+.sheet-hintergrund {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(35, 35, 35, 0.35);
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  max-width: 520px;
+  margin: 0 auto;
+  max-height: 92dvh;
+  overflow-y: auto;
+  background: var(--karte);
+  border-radius: 22px 22px 0 0;
+  padding: 10px 20px calc(24px + var(--sicher-unten));
+  overscroll-behavior: contain;
+}
+
+.sheet-griff {
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--linie);
+  margin: 0 auto 12px;
+}
+
+.beschreibung {
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.tabelle {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  font-size: 14px;
+  margin: 12px 0 18px;
+}
+
+.tabelle dt {
+  color: var(--hell);
+}
+
+.tabelle dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(var(--tabbar) + var(--sicher-unten) + 12px);
+  z-index: 35;
+  max-width: 488px;
+  margin: 0 auto;
+  background: var(--text);
+  color: #fff;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 13px;
+  box-shadow: var(--schatten);
+}
+
+.toast a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.toast-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.toast-chips button {
+  border: 1px solid #5c5c58;
+  background: transparent;
+  color: #fff;
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 12px;
+}
+
+.toast-chips button[aria-pressed="true"] {
+  background: var(--akzent);
+  border-color: var(--akzent);
+}
+
+.fortschritt {
+  height: 3px;
+  background: var(--grund);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.fortschritt div {
+  height: 100%;
+  width: 35%;
+  background: var(--akzent);
+  animation: laufen 1.4s ease-in-out infinite;
+}
+
+@keyframes laufen {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.warnung {
+  border-left: 3px solid var(--akzent);
+  padding: 8px 12px;
+  background: #fff7f3;
+  border-radius: 0 10px 10px 0;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.warnung ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+.chipwahl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chipwahl button {
+  border: 1px solid var(--linie);
+  background: var(--karte);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+}
+
+.chipwahl button[aria-pressed="true"] {
+  border-color: var(--text);
+  background: var(--text);
+  color: #fff;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.check-ok {
+  color: var(--text);
+}
+
+.check-fehlt {
+  color: var(--akzent);
+}
+
+.ohne-abstand {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fortschritt div {
+    animation: none;
+    width: 100%;
+  }
+}
+
+.knopf svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Ablehnungsgrund oben einblenden, damit die Swipe-Buttons frei bleiben */
+.toast-oben {
+  bottom: auto;
+  top: calc(var(--sicher-oben) + 56px);
+}
+
+.check span:last-child {
+  overflow-wrap: anywhere;
+}

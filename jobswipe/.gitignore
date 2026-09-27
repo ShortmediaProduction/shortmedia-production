@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.vercel
+
+# Persönliche Kontextdateien (Lebenslauf, Karriereprofil, Sprach-CI) nie committen:
+# das Repo ist öffentlich. Sie liegen in Supabase Storage (Bucket "context").
+context/*
+!context/README.md
